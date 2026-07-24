@@ -9,6 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@next/mdx": "^16.2.11",
+    "@types/mdx": "^2.0.14",
     "daisyui": "^5.7.0",
     "motion": "^12.42.2",
     "next": "16.2.10",

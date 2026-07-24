@@ -6,14 +6,14 @@ export type Project = {
   name: string;
   image: string;
   description: string;
-  href: string;
   tags: TagId[]
+  isFeatured?: boolean
 }
 
 const ProjectCard = ({ project }: { project: Project }) => {
-  const { name, image, description, href, tags } = project;
+  const { name, image, description, tags } = project;
   return (
-    <Link href={href}>
+    <Link href={name}>
       <div className="h-full w-full rounded-2xl overflow-hidden bg-base-300 font-mono shadow-2xl">
 
         <div className="bg-base-content/50 p-6 flex justify-center items-center">
