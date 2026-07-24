@@ -1,4 +1,5 @@
 import { projects } from "@/lib/content/projects";
+import Link from "next/link";
 
 const Projects = async () => {
 
@@ -13,11 +14,13 @@ const Projects = async () => {
 
       <div>
         <ul>
-          {allProjects.map((project: any) => {
+          {allProjects.map((project) => {
             return (
-              <li key={project.slug}>
-                {project.isFeatured.toString()}
-              </li>
+              <Link href={`/projects/${project.slug}`} key={project.slug}>
+                <li>
+                  {project.isFeatured.toString()}
+                </li>
+              </Link>
             )
           })}
         </ul>

@@ -1,3 +1,12 @@
 import { getCollection } from "./content";
+import type { TagId } from "@/components/ProjectTag";
 
-export const projects = getCollection("projects")
+export type ProjectMetadata = {
+  name: string;
+  image: string;
+  description: string;
+  tags: TagId[];
+  isFeatured: boolean;
+}
+
+export const projects = getCollection<ProjectMetadata>("projects")

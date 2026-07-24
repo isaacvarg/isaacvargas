@@ -13,9 +13,7 @@ export const dynamicParams = false
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
-  console.log(slug)
   const entry = await projects.getEntry(slug);
-  console.log(entry)
 
   return entry?.metadata ?? {}
 }
@@ -23,7 +21,6 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 const ProjectDetails = async ({ params }: Params) => {
   const { slug } = await params;
   const entry = await projects.getEntry(slug);
-
 
   if (!entry) notFound()
   const { default: Content } = entry;

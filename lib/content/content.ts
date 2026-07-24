@@ -1,25 +1,22 @@
 import path from "node:path"
 import { getSlugs } from "./getSlugs";
-import type { Metadata } from "next"
 import type { ComponentType } from "react"
 
-type FrontMatter = Metadata & Record<string, any>
-
-type ContentEntry = {
+type ContentModule<T> = {
   default: ComponentType;
-  metadata: FrontMatter
+  metadata: T
 }
 
-export const getCollection = (directory: string) => {
+export const getCollection = <T,>(directory: string) => {
 
   const collectionDirectory = path.join(process.cwd(), 'content', directory)
 
   const slugs = getSlugs(collectionDirectory);
 
   // gets the content entry
-  const getEntry = async (slug: string): Promise<ContentEntry | null> => {
+  const getEntry = async (slug: string): Promise<ContentModule<T> | null> => {
     try {
-      return await import(`@/content/${directory}/${slug}.mdx`)
+      return (await import(`@/content/${directory}/${slug}.mdx`)) as ContentModule<T>
     } catch {
       return null
     }
