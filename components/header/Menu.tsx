@@ -1,10 +1,10 @@
 import MenuButton, { MenuItem } from "./MenuButton";
 
-
 const menuItems: MenuItem[] = [
+  { label: "~ Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
-  { label: "Posts", href: "/blog" },
+  //  { label: "Posts", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ]
 

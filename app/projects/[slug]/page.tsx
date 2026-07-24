@@ -31,7 +31,7 @@ const ProjectDetails = async ({ params }: Params) => {
   return (
     <div className="flex flex-col gap-10 ">
 
-      <img src={metadata.image} alt={metadata.name} className="rounded-xl overflow-hidden object-cover max-h-100" />
+      <img src={metadata.image} alt={metadata.name} className="rounded-xl overflow-hidden object-cover" />
 
       <h1 className="text-accent text-3xl font-semibold">{metadata.name}</h1>
 

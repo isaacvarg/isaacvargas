@@ -36,6 +36,6 @@ export const getCollection = <T,>(directory: string) => {
     return entries.filter(entry => entry !== null)
   }
 
-  return { slugs, getEntry, getEntries }
+  return { slugs, getEntry, getEntries, }
 
 }
