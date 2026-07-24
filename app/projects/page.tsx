@@ -1,5 +1,5 @@
+import ProjectCard from "@/components/ProjectCard";
 import { projects } from "@/lib/content/projects";
-import Link from "next/link";
 
 const Projects = async () => {
 
@@ -8,23 +8,12 @@ const Projects = async () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="text-3xl font-semibold">
+      <div className="text-3xl font-semibold text-base-content">
         Projects
       </div>
 
-      <div>
-        <ul>
-          {allProjects.map((project) => {
-            return (
-              <Link href={`/projects/${project.slug}`} key={project.slug}>
-                <li>
-                  {project.isFeatured.toString()}
-                </li>
-              </Link>
-            )
-          })}
-        </ul>
-
+      <div className="grid grid-cols-2 gap-8">
+        {allProjects.map(project => <ProjectCard key={project.slug} project={project} />)}
       </div>
     </div>
 

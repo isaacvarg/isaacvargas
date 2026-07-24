@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: macchiato --default --prefersdark, latte;
+  themes: macchiato --default --prefersdark, latte --preferslight;
 };
 
 @plugin  "../lib/themes/catppuccin.latte.ts";

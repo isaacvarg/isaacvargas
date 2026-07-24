@@ -1,39 +1,10 @@
 import { LuArrowRight, LuStar } from "react-icons/lu";
-import ProjectCard, { Project } from "./ProjectCard";
+import ProjectCard from "./ProjectCard";
 import { projects } from "@/lib/content/projects";
-
-const projectsOld: Project[] = [
-  {
-    name: "Lumexia",
-    image: "/projects/lumexia-1.webp",
-    description: "Lumexia brings procurement, inventory, production, quality, pricing, and research & development into one place so your business stays organized, traceable, and in control.",
-    tags: ['next', 'ts', 'psql', 'docker']
-  },
-  {
-    name: "Helm",
-    image: "/projects/helm-1.png",
-    description: "A self-hosted, deeply customizable bookmark dashboard and browser start page. Organizes your links into tabs, sections, and bookmarks, and lets you restyle almost every pixel. You can change gradients, themes, background images, per-element colors and borders, keyboard shortcuts, and more.",
-    tags: ['next', 'ts', 'sqlite', 'docker']
-  },
-  {
-    name: "Con Cariño",
-    image: "/projects/con-carino-1.png",
-    description: "A self-hosted app for coordinating the care of one loved one alongside the household finances that surround it. It keeps the shared family ledger, the caregiver coverage calendar, invoices for caregivers, and the document library in one place.",
-    tags: ['ts', 'sqlite', 'psql', 'docker']
-  },
-  {
-    name: "INCI to UNII",
-    image: "/projects/inci-to-unii.png",
-    description: "A utility that converts cosmetic ingredient list to FDA (US Food & Drug Administration) compliant UNII entries. Helps regulatory chemist register formulations under MoCRA (Modernization of Cosmetics Regulation Act of 2022).",
-    tags: ['ts', 'sqlite', 'compliance']
-  },
-
-]
-
 
 const FeaturedProjects = async () => {
 
-  // pretty inefficient but fine for now
+  // pretty inefficient but fine for current project volume
   const featuredProjects = (await projects.getEntries()).filter(p => p.isFeatured == true);
 
 

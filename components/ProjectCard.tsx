@@ -6,6 +6,7 @@ import { ProjectMetadata } from "@/lib/content/projects";
 
 const ProjectCard = ({ project }: { project: ProjectMetadata }) => {
   const { name, image, description, tags, slug } = project;
+
   return (
     <Link href={`/projects/${slug}`}>
       <div className="h-full w-full rounded-2xl overflow-hidden bg-base-300 font-mono shadow-2xl">

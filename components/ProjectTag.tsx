@@ -1,6 +1,10 @@
 
 const classes = {
-  base: "bg-[#232535] px-2.5 py-1 rounded text-sm transition-colors",
+  base: " px-2.5 py-1 rounded text-sm transition-colors",
+  background: {
+    base: "bg-[#232535]",
+    elevated: "bg-base-300"
+  },
   tags: {
     next: 'text-accent hover:bg-accent hover:text-accent-content',
     psql: 'text-warning hover:bg-warning hover:text-warning-content',
@@ -16,7 +20,6 @@ type ProjectTagData = {
   label: string;
   tooltip: string;
 }
-
 
 export const availableTags: ProjectTagData[] = [
   {
@@ -54,7 +57,12 @@ export const availableTags: ProjectTagData[] = [
 
 export type TagId = keyof typeof classes.tags;
 
-const ProjectTag = ({ tagId }: { tagId: TagId }) => {
+type Props = {
+  tagId: TagId;
+  background?: keyof typeof classes.background;
+}
+
+const ProjectTag = ({ tagId, background = 'base' }: Props) => {
 
   const { label, tooltip } = availableTags[availableTags.findIndex(t => t.id === tagId)];
 
@@ -64,7 +72,7 @@ const ProjectTag = ({ tagId }: { tagId: TagId }) => {
         <div className="text-base-content text-sm">{tooltip}</div>
       </div>
       <span
-        className={`${classes.base} ${classes.tags[tagId]}`}
+        className={`${classes.base} ${classes.background[background]} ${classes.tags[tagId]}`}
       >
         {label}
       </span>
