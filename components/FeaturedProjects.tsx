@@ -34,7 +34,8 @@ const projectsOld: Project[] = [
 const FeaturedProjects = async () => {
 
   // pretty inefficient but fine for now
-  const featuredProjects = await projects.getEntries()
+  const featuredProjects = (await projects.getEntries()).filter(p => p.isFeatured == true);
+
 
   return (
     <div className="flex flex-col gap-2">
@@ -54,6 +55,7 @@ const FeaturedProjects = async () => {
       </div>
 
       <div className="grid grid-cols-2 gap-8">
+        {featuredProjects.map(project => <ProjectCard key={project.name} project={project} />)}
       </div>
 
 

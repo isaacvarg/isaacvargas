@@ -1,19 +1,13 @@
 import { LuTag } from "react-icons/lu";
 import ProjectTag, { TagId } from "./ProjectTag";
 import Link from "next/link";
+import { ProjectMetadata } from "@/lib/content/projects";
 
-export type Project = {
-  name: string;
-  image: string;
-  description: string;
-  tags: TagId[]
-  isFeatured?: boolean
-}
 
-const ProjectCard = ({ project }: { project: Project }) => {
-  const { name, image, description, tags } = project;
+const ProjectCard = ({ project }: { project: ProjectMetadata }) => {
+  const { name, image, description, tags, slug } = project;
   return (
-    <Link href={name}>
+    <Link href={`/projects/${slug}`}>
       <div className="h-full w-full rounded-2xl overflow-hidden bg-base-300 font-mono shadow-2xl">
 
         <div className="bg-base-content/50 p-6 flex justify-center items-center">

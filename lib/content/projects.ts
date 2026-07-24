@@ -7,6 +7,7 @@ export type ProjectMetadata = {
   description: string;
   tags: TagId[];
   isFeatured: boolean;
+  slug: string
 }
 
 export const projects = getCollection<ProjectMetadata>("projects")
