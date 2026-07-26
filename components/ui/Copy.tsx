@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { LuCheck, LuCopy } from 'react-icons/lu';
 
 const CopyButton = ({ dataToCopy }: { dataToCopy: string }) => {
 
@@ -20,10 +21,9 @@ const CopyButton = ({ dataToCopy }: { dataToCopy: string }) => {
   return (
     <button
       onClick={handleCopy}
-      className={`px-4 py-2 rounded text-primary-content font-medium transition-colors ${isCopied ? 'bg-success' : 'bg-info'
-        }`}
+      className={`btn btn-ghost btn-sm transition-colors ${isCopied ? 'btn-success' : 'btn-accent'}`}
     >
-      {isCopied ? '✓ Copied!' : 'Copy Content'}
+      {isCopied ? <LuCheck /> : <LuCopy />}
     </button>
   );
 }
