@@ -6,4 +6,51 @@ export const metadata = {
     isFeatured: true
   }
 
-# {metadata.name}
+## The Problem
+
+Under FDA MoCRA (Modernization of Cosmetics Regulation Act) requirements, cosmetic manufacturers must register every product's ingredient list through the FDA's Cosmetics Direct portal — but the portal doesn't accept the industry-standard INCI names that appear on product labels. Instead, it requires each ingredient's UNII (Unique Ingredient Identifier) code and preferred substance name. For a product with 30+ ingredients, manually cross-referencing each one against FDA databases is tedious, error-prone, and a real bottleneck during registration season.
+
+## The Solution
+
+INCI-to-UNII is a web application that automates the entire conversion pipeline. A user pastes a comma-separated INCI listing — exactly as it appears on a product label — and the app resolves each ingredient to its UNII code and preferred name via the FDA's public API in real time. The results are displayed in order of predominance (preserving the regulatory ordering from the label) and can be exported as a CSV file formatted to the Cosmetics Direct portal's exact import schema. One click replaces what used to be an afternoon of manual lookups.
+
+## Key Technical Decisions
+
+### FDA API Integration with Graceful Degradation
+
+Not every INCI name maps cleanly to a UNII entry. Trade names, regional naming variations, and multi-component ingredients can all cause misses. Rather than forcing the user to leave the app and hunt through PrecisionFDA manually, unresolved ingredients are flagged inline (highlighted in red) and a blank row is preserved in the CSV export so the order of predominance stays intact. This was a deliberate UX choice — partial results with clear error signaling are more useful than blocking the entire workflow on a single lookup failure.
+
+### Persistent Custom Mappings
+
+The app includes a custom-mapping feature backed by Prisma and SQLite. When a user manually resolves an ingredient the FDA API couldn't match, that mapping is persisted and applied automatically on all future conversions. Over time, the system builds an organization-specific dictionary that fills the gaps in the public API — effectively learning the edge cases of each company's ingredient catalog.
+
+### Export-Ready Output
+
+The CSV export isn't just a data dump. It's structured to match the Cosmetics Direct portal's expected import format: preferred ingredient name, UNII code, and a direct link to the PrecisionFDA entry for each ingredient. The goal was zero friction between conversion and submission — no reformatting, no copy-pasting columns, no manual cleanup.
+
+## Tech Stack
+
+
+
+| Header 1 | Header 2 | Header 3 |
+| :---     | :---:    | ---:     |
+| Left     | Center   | Right    |
+| Text     | Text     | Text     |
+
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript |
+| ORM / Database | Prisma with SQLite |
+| UI | Tailwind CSS, Radix UI primitives |
+| Export | SheetJS (xlsx) |
+| Deployment | Docker |
+
+## What I Learned
+
+This project sat at the intersection of software engineering and regulatory compliance — two domains that don't always speak the same language. Building it taught me to treat regulatory schemas as first-class API contracts: the CSV export format, the field ordering, the handling of null entries all had to conform to an external system's expectations with no room for "close enough." It also reinforced the value of progressive enhancement in developer tools. The custom-mapping system started as a workaround for API gaps but became the feature users relied on most, because real-world ingredient data is messier than any public database accounts for.
+
+## Status
+
+Open source and in active use for FDA cosmetic product registrations. The project has been forked by other teams in the cosmetics industry navigating the same MoCRA compliance workflow.
