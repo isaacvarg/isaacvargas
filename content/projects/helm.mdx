@@ -6,5 +6,53 @@ export const metadata = {
     isFeatured: true,
   }
 
-# {metadata.name}
+## The Problem
 
+Every self-hosted start page I'd tried made me pick between two bad options: a handful of preset themes and call it a day, or drop into config files and hand-written CSS to get anything more specific. Most of them also want a database server running behind them, which felt like a lot of infrastructure for what's ultimately a page of links.
+
+## The Solution
+
+Helm is a self-hosted bookmark dashboard organized as tabs, sections within a tab, and bookmarks within a section. Almost every visual property, colors, gradients, borders, backgrounds, opacity, can be overridden at the dashboard, tab, section, or link level, and all of it is edited in place on the live dashboard rather than through a separate settings screen. Everything lives in one local SQLite file, so there's no external service to stand up just to store a list of links.
+
+## Key Technical Decisions
+
+### A Cascading, Typed Style Schema
+
+The customization model is built directly into the schema rather than as a generic "theme" blob. `Dashboard` holds the global styling (title gradients, background overlay, blur, tab bar position); it has many `Tab`s, each with its own pill gradient, side image, and layout overrides; each `Tab` has many `Section`s; each `Section` has many `Link`s, each with its own background, border, and text styling. Every visual property is an explicit, typed column at the level it applies to. That means a schema migration whenever a new stylable property gets added, instead of just stuffing another key into a JSON column, but it allows for type safety and lets each level be queried and validated like any other typed record.
+
+### Favicon Resolution
+
+Rather than assuming `/favicon.ico` exists and looks good, adding a bookmark kicks off a small resolution pipeline: fetch the page's HTML, collect every `<link rel="icon">`, `apple-touch-icon`, and `shortcut icon` tag, and follow a linked web manifest for its own `icons` array. Each candidate is scored by its parsed `sizes` attribute (treating `"any"` as the largest possible), sorted best-first, de-duplicated, and downloaded one at a time until one actually resolves to a real image, verified by content type rather than trusted blindly. Only if nothing on the page pans out does it fall back to the conventional `/favicon.ico`.
+
+### In-Place Edit Mode
+
+Editing a tab, section, bookmark, or the dashboard's own settings happens directly on the live dashboard through an overlay and drawer, not a separate admin panel. What you click into edit is exactly what you're looking at. There's no parallel "settings view" that can drift out of sync with what's actually rendered.
+
+### Shortcut Mode
+
+Pressing a single key activates a lightweight global state (tracked in a small Zustand slice) that turns on keyboard navigation across the dashboard. Combined with `react-hotkeys-hook` and a per-tab or per-link shortcut key stored right on that record, this turns Helm into a keyboard-driven launcher without needing a command palette or fuzzy search on top. This was inspired by using Neovim as my daily driver for my IDE of choice, which made me want vim motions or shortcuts for everything on my desktop.
+
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Database | SQLite via Prisma 7 (better-sqlite3 adapter) |
+| Styling | Tailwind CSS v4, daisyUI, Catppuccin themes |
+| State | Zustand |
+| Animation | Motion |
+| Icons / Shortcuts | react-icons, react-hotkeys-hook |
+| Deployment | Docker |
+
+## Future Considerations
+
+- Using AI APIs to fetch highly specific news; Each 'news' entry would have its own prompt
+- RSS Feed
+- Weather
+- Container health status (Unraid, Portainer, Arcane etc)
+
+## Status
+
+Actively developed and self-hosted, published as a Docker image on GHCR.

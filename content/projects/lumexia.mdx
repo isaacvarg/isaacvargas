@@ -6,7 +6,71 @@ export const metadata = {
   isFeatured: true
 }
 
-# this is a heading
+## The Problem
 
-this is some text
+I worked as a formulations and analytical chemist for a white-label cosmetic and bath product manufacturer. The company had brilliant chemists and solid formulations, but almost no digital infrastructure behind them; most workflows lived in physical paper trails, unorganized spreadsheets, or the memory of specific employees. This workflow became untenable during the COVID pandemic, when we had to switch to producing and shipping hand sanitizer at volumes far beyond our normal sales. Procurement turned chaotic: material availability, wild pricing swings, and material quality and compatibility issues all hit at once, and none of it was tracked anywhere that purchasing, production, and finance could actually share.
 
+## The Solution
+
+Lumexia is a manufacturing, quality, and inventory management system that helps a production business run end to end. It brings procurement, inventory, production, quality, pricing, and research & development into one place, built around a small set of shared records (items, lots, purchase orders, batches) so nothing has to be re-entered or re-explained crossing from one department to another. It tracks every item and material through lot numbers and multiple inventory quantities; runs the full purchase cycle from procurement request through purchase order to receiving; holds master batch records that get instantiated into individual production runs with a step-by-step compounding workflow; and covers quality testing, parametric pricing with an approval workflow, and an R&D electronic lab notebook, all traced back to the exact lots involved. I started building it while teaching myself JavaScript for fun; it grew well past a learning project once coworkers started asking for more of their own workflows inside it.
+
+## Key Technical Decisions
+
+### Items as the Central Record
+
+Every raw material, piece of packaging, or finished good is represented by a single **Item** record, and nearly everything else in the system hangs off of it: a lot of stock is a lot of an item, a purchase order line buys an item, a formula is built from items and produces an item, and a quality spec is defined per item. Anchoring the whole domain around one record, rather than letting each module keep its own copy of "what a material is," is what lets inventory, purchasing, production, and quality stay consistent with each other.
+
+### MBPR vs. BPR: Recipe vs. Run
+
+Production is split across two records that sound alike but do different jobs. A **Master Batch Production Record (MBPR)** is the reusable template for producing an item: the bill of materials as concentrations, the ordered steps, and the batch sizes it can be made in, written once and reused indefinitely. A **Batch Production Record (BPR)** is one concrete run made from an MBPR at a chosen size, with the recipe expanded into real quantities and per-run tasks. A batch then moves through a defined status lifecycle (queued, staging, compounding, completed, awaiting QC, released, or various failure/investigation states), and most of those transitions happen automatically as each stage's work finishes rather than needing someone to babysit the batch.
+
+### Lot-Level Traceability
+
+A purchase order becomes a delivery, a delivery becomes a lot in receiving, a lot gets consumed into a batch, and the batch produces a lot of its own; every one of those steps points back to the exact lot before it. That chain is what makes a finished product's full history reconstructable: which supplier delivery a material came from, which batch consumed it, and which quality results that batch passed before release.
+
+### Specifications and Examinations
+
+Quality is split into a setup side and a day-to-day side. **Parameters** are the measurable characteristics you test (pH, assay, appearance); **specifications** attach parameters to a specific item with the values that count as passing; **examinations** are the recorded test events against a lot, evaluated automatically against that item's specification to decide pass or fail. That layering is what lets a batch's release gate on real, comparable pass/fail data instead of a person's judgment call on a spreadsheet.
+
+### Parametric Pricing and PO Matching
+
+On the money side, pricing examinations recompute what a produced or purchased item should sell for to hit a target profit margin, and route that change through an approval workflow before it takes effect. Separately, PO matching reconciles a purchase order against its invoice, packing slip, and payment, so a purchase isn't considered closed until the paperwork and the money agree with what was actually received.
+
+### R&D as the Bench-Work Counterpart to Production
+
+Before a formula ever becomes a production recipe, it's developed inside an **Experiment**: an experiment studies a subject item, holds several candidate **Variants** (a bill of materials and method to try), and each variant can produce physical **Samples** that get measured against the same quality parameters used elsewhere in the system. A variant can also be created as an analog of an existing MBPR, cloning its recipe as a starting point for iteration, and its cost projections pull straight from the pricing data in accounting. Production repeats a proven recipe; R&D is where that recipe gets found.
+
+### Hardware, Pragmatically
+
+QR label printing and camera-based scanning are built in and used daily, for lot labels, laboratory samples, and scanning stock during audits or receiving. Scales are handled more honestly: Lumexia doesn't read a balance electronically today, you type the weight in, since integrating with real lab and warehouse scales reliably is a much bigger problem than it looks. There's early, explicitly not-production-ready work bridging a "dumb" balance to the app over an ESP8266 microcontroller, but I'd rather ship a manual entry field that works every time than a serial integration that's flaky.
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 14 |
+| Language | TypeScript |
+| Database | PostgreSQL via Prisma |
+| Auth | NextAuth |
+| Object Storage | RustFS (S3-compatible) |
+| Forms / Data | TanStack Form, TanStack Table, TanStack Query, Zod, React Hook Form |
+| Scheduling | FullCalendar, node-cron |
+| Documents / Labels | jsPDF, QR code generation, niimbluelib (thermal label printers) |
+| Styling | Tailwind CSS, daisyUI, Catppuccin themes |
+| Deployment | Docker |
+
+## What I Learned
+
+Lumexia has taught me so very much and I had a lot of fun building it. It started off as an application of knowledge to something tangible and turned into software that management and my coworkers rely on daily. This meant that decisions I made early for my own convenience ended up mattering a lot more than I expected.
+
+I learned a lot about how to take positions and workflows outside my own, assimilating all of its complexities and turning that into software. Working with a production deployment with real users inputting a great deal of data taught me a lot about managing migrations, updates and live data while constantly improving what started off as a learning project.
+
+I also learned to resist the urge to generalize: Lumexia is shaped around cosmetic and bath-product manufacturing, and keeping that bias visible (rather than pretending to be a generic ERP) made the actual workflows better instead of blander. 
+
+## Future Considerations
+
+Accounting is the area with the clearest wishlist: proper account reconciliation and exporting to QuickBooks or similar platforms are both things I'd like to add. On the hardware side, I would love to integrate dumb compounding and analytical scales using ESP8266 microcontrollers to make them integrate with Lumexia: automatically registering measurements during warehouse staging and lab analysis, safeguards during staging, and a container registry so gross and net contents can be calculated automatically instead of by hand.
+
+## Status
+
+Actively developed and in real use by former coworkers in the industry, with a public [documentation site](https://lumexia.isaacvargas.dev) and a [live demo](https://lumexia-demo.isaacvargas.dev).

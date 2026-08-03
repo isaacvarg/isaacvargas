@@ -13,7 +13,6 @@ const skills = {
     "CSS/SCSS",
   ],
   devOps: [
-    "Linux",
     "Docker (compose, buildx)",
     "Cloudflare",
     "Github Actions",
