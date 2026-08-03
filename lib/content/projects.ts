@@ -7,10 +7,12 @@ export type ProjectMetadata = {
   description: string;
   tags: TagId[];
   isFeatured: boolean;
+  order?: number;
   slug: string
   repoUrl?: string;
   docsUrl?: string;
   demoUrl?: string;
+  roadmapUrl?: string;
 }
 
 export const projects = getCollection<ProjectMetadata>("projects")

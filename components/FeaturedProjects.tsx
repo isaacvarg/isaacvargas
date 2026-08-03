@@ -5,7 +5,9 @@ import { projects } from "@/lib/content/projects";
 const FeaturedProjects = async () => {
 
   // pretty inefficient but fine for current project volume
-  const featuredProjects = (await projects.getEntries()).filter(p => p.isFeatured == true);
+  const featuredProjects = (await projects.getEntries())
+    .filter(p => p.isFeatured == true)
+    .sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity));
 
 
   return (
