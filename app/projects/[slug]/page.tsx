@@ -37,24 +37,32 @@ const ProjectDetails = async ({ params }: Params) => {
 
       <div className="flex flex-col gap-2">
         <div className="flex gap-3">
-          <a href={"/"} target="_blank" rel="noopener noreferrer">
-            <button className="w-28 btn  btn-sm btn-accent btn-outline">
-              <LuGithub className="size-4" />
-              Repo
-            </button>
-          </a>
-          <a href={"/"} target="_blank" rel="noopener noreferrer">
-            <button className="w-28 btn btn-sm btn-accent btn-outline">
-              <LuAppWindow className="size-4" />
-              Demo
-            </button>
-          </a>
-          <a href={"/"} target="_blank" rel="noopener noreferrer">
-            <button className="w-28 btn btn-sm btn-accent btn-outline">
-              <LuBook className="size-4" />
-              Docs
-            </button>
-          </a>
+          {metadata.repoUrl &&
+            <a href={"/"} target="_blank" rel="noopener noreferrer">
+              <button className="w-28 btn  btn-sm btn-accent btn-outline">
+                <LuGithub className="size-4" />
+                Repo
+              </button>
+            </a>
+          }
+
+          {metadata.demoUrl &&
+            <a href={"/"} target="_blank" rel="noopener noreferrer">
+              <button className="w-28 btn btn-sm btn-accent btn-outline">
+                <LuAppWindow className="size-4" />
+                Demo
+              </button>
+            </a>
+          }
+
+          {metadata.docsUrl &&
+            <a href={"/"} target="_blank" rel="noopener noreferrer">
+              <button className="w-28 btn btn-sm btn-accent btn-outline">
+                <LuBook className="size-4" />
+                Docs
+              </button>
+            </a>
+          }
         </div>
 
 
