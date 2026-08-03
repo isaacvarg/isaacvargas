@@ -10,6 +10,9 @@ const components: MDXComponents = {
   h2: ({ children }) => (
     <h1 className="text-xl font-semibold text-accent">{children}</h1>
   ),
+  h3: ({ children }) => (
+    <h1 className="text-lg font-semibold text-accent/75">{children}</h1>
+  ),
   ul: ({ children }) => (
     <ul className="list-disc pl-5 space-y-1 text-base-content">
       {children}

@@ -67,7 +67,6 @@ const ProjectDetails = async ({ params }: Params) => {
 
       <hr className="bg-accent" />
 
-
       <Content />
     </div>
   )
