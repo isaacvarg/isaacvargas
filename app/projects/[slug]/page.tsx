@@ -3,7 +3,7 @@ import { projects } from "@/lib/content/projects";
 import type { Metadata } from "next"
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { LuAppWindow, LuBook, LuGithub, LuTag } from "react-icons/lu";
+import { LuAppWindow, LuBook, LuGithub, LuMessageCircle, LuTag } from "react-icons/lu";
 
 type Params = { params: Promise<{ slug: string }> }
 
@@ -38,7 +38,7 @@ const ProjectDetails = async ({ params }: Params) => {
       <div className="flex flex-col gap-2">
         <div className="flex gap-3">
           {metadata.repoUrl &&
-            <a href={"/"} target="_blank" rel="noopener noreferrer">
+            <a href={metadata.repoUrl} target="_blank" rel="noopener noreferrer">
               <button className="w-28 btn  btn-sm btn-accent btn-outline">
                 <LuGithub className="size-4" />
                 Repo
@@ -47,7 +47,7 @@ const ProjectDetails = async ({ params }: Params) => {
           }
 
           {metadata.demoUrl &&
-            <a href={"/"} target="_blank" rel="noopener noreferrer">
+            <a href={metadata.demoUrl} target="_blank" rel="noopener noreferrer">
               <button className="w-28 btn btn-sm btn-accent btn-outline">
                 <LuAppWindow className="size-4" />
                 Demo
@@ -56,10 +56,19 @@ const ProjectDetails = async ({ params }: Params) => {
           }
 
           {metadata.docsUrl &&
-            <a href={"/"} target="_blank" rel="noopener noreferrer">
+            <a href={metadata.docsUrl} target="_blank" rel="noopener noreferrer">
               <button className="w-28 btn btn-sm btn-accent btn-outline">
                 <LuBook className="size-4" />
                 Docs
+              </button>
+            </a>
+          }
+
+          {metadata.roadmapUrl &&
+            <a href={metadata.roadmapUrl} target="_blank" rel="noopener noreferrer">
+              <button className="w-28 btn btn-sm btn-accent btn-outline">
+                <LuMessageCircle className="size-4" />
+                Roadmap
               </button>
             </a>
           }
