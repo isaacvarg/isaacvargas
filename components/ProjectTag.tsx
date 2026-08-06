@@ -11,7 +11,9 @@ const classes = {
     ts: 'text-primary hover:bg-primary hover:text-primary-content',
     sqlite: 'text-info hover:bg-info hover:text-info-content ',
     docker: 'text-warning hover:bg-warning hover:text-warning-content',
-    compliance: 'text-error hover:bg-error hover:text-error-content'
+    compliance: 'text-error hover:bg-error hover:text-error-content',
+    api: 'text-secondary hover:text-secondary hover:text-secondary-content'
+
   }
 }
 
@@ -51,6 +53,11 @@ export const availableTags: ProjectTagData[] = [
     id: "compliance",
     label: "Compliance",
     tooltip: "So far I have build tools for chemistry and cosmetic compliance."
+  },
+  {
+    id: "api",
+    label: "API",
+    tooltip: ""
   },
 
 ]

@@ -12,13 +12,13 @@ const socials: Social[] = [
     label: "LinkedIn",
     tooltip: "LinkedIn",
     icon: <LuLinkedin />,
-    href: "https://boardgamegeek.com"
+    href: "https://linkedin.com/in/isaacvarg"
   },
   {
     label: "Resume",
     tooltip: "Download my resume",
     icon: <LuDownload />,
-    href: "/"
+    href: "/isaac-vargas-resume.pdf"
   },
 
 ]
