@@ -29,14 +29,14 @@ const ProjectDetails = async ({ params }: Params) => {
   const { default: Content, metadata } = entry;
 
   return (
-    <div className="flex flex-col gap-10 ">
+    <div className="flex flex-col gap-8 sm:gap-10">
 
-      <img src={metadata.image} alt={metadata.name} className="rounded-xl overflow-hidden object-cover" />
+      <img src={metadata.image} alt={metadata.name} className="w-full h-auto rounded-xl overflow-hidden object-cover" />
 
-      <h1 className="text-accent text-3xl font-semibold">{metadata.name}</h1>
+      <h1 className="text-accent text-2xl sm:text-3xl font-semibold">{metadata.name}</h1>
 
       <div className="flex flex-col gap-2">
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           {metadata.repoUrl &&
             <a href={metadata.repoUrl} target="_blank" rel="noopener noreferrer">
               <button className="w-28 btn  btn-sm btn-accent btn-outline">
@@ -76,7 +76,7 @@ const ProjectDetails = async ({ params }: Params) => {
 
 
         <div className="flex items-center gap-2 pt-2 flex-wrap">
-          <LuTag className="w-4 h-4 text-slate-400 shrink-0 mr-1" />
+          <LuTag className="w-4 h-4 text-base-content/70 shrink-0 mr-1" />
           {metadata.tags.map((tag) => <ProjectTag key={tag} tagId={tag} background="elevated" />)}
         </div>
       </div>

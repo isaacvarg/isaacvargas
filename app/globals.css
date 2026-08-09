@@ -6,6 +6,35 @@
 @plugin  "../lib/themes/catppuccin.latte.ts";
 @plugin "../lib/themes/catppuccin.macchiato.ts";
 
+/* Shared gutter for the sticky header and <main>. Keeping both on one utility
+   is what stops the bar and the page content from drifting out of alignment. */
+@utility page-container {
+  @apply mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8;
+}
+
+/* daisyUI hides tooltip bubbles with opacity:0 rather than display:none, so they
+   still generate boxes. Each one is absolutely positioned at left:50% with
+   width:max-content (up to 20rem), so a tag near the right edge extends the
+   document's scrollable width and produces an invisible horizontal scrollbar on
+   narrow viewports. Take them out of flow until they are actually shown.
+   Unlayered, so this wins over daisyUI's @layer utilities without !important. */
+.tooltip > .tooltip-content,
+.tooltip[data-tip]:before,
+.tooltip:after {
+  display: none;
+  transition-behavior: allow-discrete;
+}
+
+/* Mirrors daisyUI's own "has a tip to show" guard so an empty tooltip never
+   renders a stray arrow on hover. */
+.tooltip:is([data-tip]:not([data-tip=""]), :has(.tooltip-content:not(:empty))):is(:hover, .tooltip-open, :has(:focus-visible)) {
+  & > .tooltip-content,
+  &[data-tip]:before,
+  &:after {
+    display: block;
+  }
+}
+
 /* Leaflet hardcodes background:#ddd on the container, which shows through the
    1px seams between tiles and the antialiased rounded corners as light pixels.
    leaflet.css ships in the dynamically-imported Map chunk, so it loads after

@@ -9,15 +9,22 @@ const projectCount = projects.slugs.length
 const About = () => {
   return (
     <div className="flex flex-col gap-8">
-      <div className="text-3xl font-semibold">
+      <div className="text-2xl sm:text-3xl font-semibold">
         About Me
       </div>
-      <div className="flex flex-row gap-8 ">
-        <div className="min-w-100 rounded-lg overflow-clip">
-          <Image src="/ana-y-isaac-2.jpg" width={956} height={1274} alt="Me and my beautiful wife." />
+      <div className="flex flex-col gap-6 md:flex-row md:gap-8">
+        <div className="w-full max-w-sm self-center rounded-lg overflow-clip md:w-100 md:max-w-none md:shrink-0 md:self-start">
+          <Image
+            src="/ana-y-isaac-2.jpg"
+            width={956}
+            height={1274}
+            sizes="(max-width: 768px) 24rem, 25rem"
+            className="h-auto w-full"
+            alt="Me and my beautiful wife."
+          />
         </div>
 
-        <div className="tex-base-content text-justify flex flex-col gap-3">
+        <div className="text-base-content text-left md:text-justify flex flex-col gap-3">
           <p>
             Hello! I&apos;m Isaac Vargas, a software engineer based in Southern California.
           </p>
@@ -38,8 +45,8 @@ const About = () => {
 
         <div className="flex flex-col gap-6">
           <div className="flex gap-2">
-            <LuBriefcase className="size-8 text-accent" />
-            <span className="text-base-content text-2xl font-semibold">Experience</span>
+            <LuBriefcase className="size-6 sm:size-8 text-accent" />
+            <span className="text-base-content text-xl sm:text-2xl font-semibold">Experience</span>
 
           </div>
 
@@ -70,7 +77,7 @@ const About = () => {
                   src="/logos/maki.png"
                   width={500}
                   height={500}
-                  alt="Environmental Beauty Concepts logo"
+                  alt="Maki Creations logo"
                   className="size-16 object-contain"
                 />
               </div>
@@ -89,7 +96,7 @@ const About = () => {
                   src="/logos/csuf.png"
                   width={500}
                   height={500}
-                  alt="Environmental Beauty Concepts logo"
+                  alt="California State University, Fullerton logo"
                   className="size-16 object-contain"
                 />
               </div>
@@ -111,8 +118,8 @@ const About = () => {
 
         <div className="flex flex-col gap-6">
           <div className="flex gap-2">
-            <LuBookHeart className="size-8 text-accent" />
-            <span className="text-base-content text-2xl font-semibold">Personal</span>
+            <LuBookHeart className="size-6 sm:size-8 text-accent" />
+            <span className="text-base-content text-xl sm:text-2xl font-semibold">Personal</span>
           </div>
           <p>
             Outside of software I love rock climbing and pickleball. I also enjoy playing tabletop rpgs and boardgames, reading scifi and fantasy, tinkering with electronics and 3d printing, and learning new skills. I am <UI.Hover content="currently I daily drive the Corne, a 40% 3x6 column staggered keyboard">custom split keyboard</UI.Hover> and linux enthusiast.

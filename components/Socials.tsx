@@ -25,14 +25,14 @@ const socials: Social[] = [
 
 const Socials = () => {
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex flex-wrap items-center gap-x-1 gap-y-2">
       {socials.map((s, i) => {
         const isLast = i === socials.length - 1
 
         return (
           <div key={s.href}>
             <SocialButton label={s.label} icon={s.icon} tooltip={s.tooltip} href={s.href} />
-            {!isLast && <span>|</span>}
+            {!isLast && <span className="hidden sm:inline">|</span>}
           </div>
         )
       })}

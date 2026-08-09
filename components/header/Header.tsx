@@ -5,7 +5,7 @@ import Menu from "./Menu";
 const Header = () => {
   return (
     <div
-      className="flex justify-between items-center px-40 py-6"
+      className="page-container flex justify-between items-center gap-3 py-3 md:py-6"
     >
       <Breadcrumbs />
 

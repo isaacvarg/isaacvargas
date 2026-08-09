@@ -54,8 +54,8 @@ const Skills = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex gap-2">
-        <LuBraces className="size-8 text-accent" />
-        <span className="text-base-content text-2xl font-semibold">Skills</span>
+        <LuBraces className="size-6 sm:size-8 text-accent" />
+        <span className="text-base-content text-xl sm:text-2xl font-semibold">Skills</span>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,14rem)_1fr] gap-x-6 gap-y-4 text-base-content">

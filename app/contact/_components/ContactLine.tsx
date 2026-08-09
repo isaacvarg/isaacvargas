@@ -13,13 +13,13 @@ const ContactLine = ({ contact }: { contact: ContactInfo }) => {
 
   return (
 
-    <div className="flex justify-between items-center">
+    <div className="flex flex-wrap justify-between items-center gap-x-3 gap-y-1">
       <div className="bg-accent text-accent-content px-2.5 py-1">
         {label}
       </div>
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center min-w-0">
         <UI.Link href={href}>
-          <h2 className="text-base-content text-lg font-medium">{data}</h2>
+          <h2 className="text-base-content text-base sm:text-lg font-medium break-all">{data}</h2>
         </UI.Link>
         {enableCopy && <UI.Copy dataToCopy={data} />}
       </div>
