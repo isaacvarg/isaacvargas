@@ -15,6 +15,7 @@
     "@next/mdx": "^16.2.11",
     "@types/mdx": "^2.0.14",
     "daisyui": "^5.7.0",
+    "katex": "^0.18.4",
     "leaflet": "^1.9.4",
     "motion": "^12.42.2",
     "next": "16.2.10",
@@ -22,7 +23,11 @@
     "react-dom": "19.2.4",
     "react-icons": "^5.7.0",
     "react-leaflet": "^5.0.0",
-    "remark-gfm": "^4.0.1"
+    "rehype-katex": "^7.0.1",
+    "rehype-pretty-code": "^0.14.5",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
+    "shiki": "^4.4.3"
   },
   "devDependencies": {
     "@catppuccin/daisyui": "^2.1.1",

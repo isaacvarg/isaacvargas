@@ -11,6 +11,11 @@ const withMDX = createMDX({
   options: {
     remarkPlugins: [
       'remark-gfm',
+      'remark-math',
+    ],
+    rehypePlugins: [
+      ['rehype-katex', { strict: false, throwOnError: false }],
+      ['rehype-pretty-code', { theme: 'catppuccin-macchiato', keepBackground: false, defaultLang: { block: 'text' } }],
     ],
   }
 })

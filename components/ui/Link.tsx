@@ -6,10 +6,11 @@ type Props = {
 } & React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
 
-const BaseLink = ({ href, children, ...rest }: Props) => {
+const BaseLink = ({ href, children, className, ...rest }: Props) => {
 
   const isInternal = href.startsWith("/")
-  const baseClasses = "text-accent hover:underline decoration-dashed underline-offset-2 inline-block hover:scale-105 transition-transform duration-300 cursor-pointer"
+  const layoutClasses = className ?? "inline-block hover:scale-105"
+  const baseClasses = `text-accent hover:underline decoration-dashed underline-offset-2 transition-transform duration-300 cursor-pointer ${layoutClasses}`
 
   if (isInternal) {
     return (

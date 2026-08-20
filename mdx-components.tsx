@@ -1,6 +1,25 @@
 import type { MDXComponents } from 'mdx/types'
+import CodeBlock from '@/components/mdx/CodeBlock'
+import { UI } from '@/components/ui'
 
 const components: MDXComponents = {
+  pre: (props) => <CodeBlock {...props} />,
+  code: ({ children, ...props }) =>
+    'data-language' in props ? (
+      <code {...props} data-theme={undefined}>{children}</code>
+    ) : (
+      <code
+        {...props}
+        className="rounded bg-base-300 px-1.5 py-0.5 text-[0.9em] text-base-content"
+      >
+        {children}
+      </code>
+    ),
+  a: ({ href, children, ...props }) => (
+    <UI.Link href={href ?? '#'} {...props} className="inline">
+      {children}
+    </UI.Link>
+  ),
   p: ({ children }) => (
     <p className="text-base-content text-left md:text-justify">{children}</p>
   ),

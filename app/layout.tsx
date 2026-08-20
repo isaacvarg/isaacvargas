@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fira_Code } from "next/font/google";
 import "./globals.css";
+import "katex/dist/katex.min.css";
 import Header from "@/components/header/Header";
 
 const firaCode = Fira_Code({
