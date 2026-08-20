@@ -12,8 +12,10 @@ const classes = {
     sqlite: 'text-info hover:bg-info hover:text-info-content ',
     docker: 'text-warning hover:bg-warning hover:text-warning-content',
     compliance: 'text-error hover:bg-error hover:text-error-content',
-    api: 'text-secondary hover:text-secondary hover:text-secondary-content'
-
+    api: 'text-secondary hover:text-secondary hover:text-secondary-content',
+    go: 'text-warning hover:bg-warning hover:text-warning-content',
+    cli: 'text-accent hover:bg-accent hover:text-accent-content',
+    linux: 'text-info hover:bg-info hover:text-info-content ',
   }
 }
 
@@ -59,7 +61,21 @@ export const availableTags: ProjectTagData[] = [
     label: "API",
     tooltip: ""
   },
-
+{
+    id: "go",
+    label: "Go (Golang)",
+    tooltip: "Go"
+  },
+{
+    id: "cli",
+    label: "CLI",
+    tooltip: "command line interface"
+  },
+{
+    id: "linux",
+    label: "linux",
+    tooltip: "Linux binary or package"
+  },
 ]
 
 export type TagId = keyof typeof classes.tags;
