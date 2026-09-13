@@ -1,0 +1,32 @@
+export const metadata = {
+    name: "Daily Exposoure (CA Prop. 65)",
+    image: "/projects/dotpak.png",
+    description: "A CLI to manage and install packages, apps and plugins for your dotfiles.",
+    tags: ['go', 'cli', 'tui', 'linux', 'aur'],
+    isFeatured: true,
+    repoUrl: "https://github.com/isaacvarg/dotpak"
+}
+
+# Dotpak
+
+A command-line tool that helps manage packages, apps and plugins for your dotfiles.
+
+dotpak lets you declare the packages, apps, and plugins you want installed across machines in a single manifest, organize them into groups (like work, personal), and install them all with one command.
+
+## The Problem
+
+I was already managing my dotfiles using [chezmoi](https://www.chezmoi.io), however, I also wanted to be able to declare and install packages, applications and plugins alongside my dotfiles when initiating a new computer. I was previously accomplishing this with several bash shell scripts but adding new items was cumbersome and error prone. Making a TUI to handle adding items and installation was the next clear step to making this process smooth and integrating with existing dotfile manages, such as chezmoi, stowe, symlinks, etc.
+
+## Technical Considerations
+
+Go was a clear choice for this project for its speed, developer experience with making CLI tools, and ability to handle the different commands required to install various types of items, such as pacman, aur, flatpak, etc.
+
+In using Go, there were several frameworks and libraries that could be leveraged to flesh out this project. The two big ones used are [bubbletea (including lipgloss and bubbles)](https://github.com/charmbracelet/bubbletea) for handing the UI in the CLI and [Cobra](https://github.com/spf13/cobra), a well established and trusted libary for making CLI applications.
+
+## Things I learned
+
+This really expanded my Go knowledge and taught me the bubbletea framework and cobra library. Additionally, this was the first application that I published on the AUR so other Arch-based linux distributions could easily install it. This was handled using [GoReleaser](https://goreleaser.com) and GitHub Actions, which allowed me to build releases and push to the AUR automatically.
+
+## Future Work
+
+I would love to expand this to work with hooks so that package installation would trigger a request to add to the dotpak manifest. Additionally, I want to expand the use of bubbletea in the project by creating interactive ways to view and modify the manifest. Another large milestone for this project would be to expand it beyond Arch-based linux distrubtions so that other systems would manage their packages with it even if not using `pacman` as their package manager.

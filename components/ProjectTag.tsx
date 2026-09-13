@@ -16,6 +16,8 @@ const classes = {
     go: 'text-warning hover:bg-warning hover:text-warning-content',
     cli: 'text-accent hover:bg-accent hover:text-accent-content',
     linux: 'text-info hover:bg-info hover:text-info-content ',
+    tui: 'text-warning hover:bg-warning hover:text-warning-content',
+    aur: 'text-accent hover:bg-accent hover:text-accent-content',
   }
 }
 
@@ -75,6 +77,16 @@ export const availableTags: ProjectTagData[] = [
     id: "linux",
     label: "linux",
     tooltip: "Linux binary or package"
+  },
+  {
+    id: "tui",
+    label: "tui",
+    tooltip: ""
+  },
+{
+    id: "aur",
+    label: "aur",
+    tooltip: "package released on the arch user repository"
   },
 ]
 
