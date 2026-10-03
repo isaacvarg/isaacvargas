@@ -1,0 +1,45 @@
+export const metadata = {
+    name: "SDS Forge",
+    image: "/projects/sdsforge.png",
+    description: "A CLI for generating and versioning Safety Data Sheets from YAML.",
+    tags: ['go', 'cli', 'ghs', 'osha', 'tui'],
+    isFeatured: false,
+    repoUrl: "https://github.com/isaacvarg/sdsforge"
+}
+
+# SDSForge
+
+A command-line tool for generating and versioning Safety Data Sheets (SDS).
+
+SDSForge turns a YAML description of a product into an OSHA 16-section Safety Data Sheet as a PDF. You declare the GHS hazard codes that apply (like `H315` or `H319`), and it builds Section 2 from the GHS reference tables and derives wording for the other sections from templates.
+
+## The Problem
+
+Safety Data Sheets are required for chemical and cosmetic raw materials and products, but they are tedious to produce and maintain. They are usually long Word documents copied from one product to the next, with hazard statements, pictograms and precautionary phrases transcribed by hand. Revisions are easy to lose track of, and a small classification change means hunting through the document for everything it touches.
+
+I wanted to treat an SDS the way I treat code: a single source of truth in plain text, generated output, and a real history of what changed and when.
+
+## Technical Considerations
+
+Go was a natural fit again. The result is a single self-contained binary with no runtime to install, which matters for a tool people may want to drop onto any machine.
+
+A few design decisions shaped the project:
+
+- **YAML as the source of truth.** Each document is a `document.yaml` that is easy to read, diff and review. Hazard codes act as triggers, and the content for Section 2 is generated from GHS reference tables rather than written by hand.
+- **PDF rendering through the browser.** Documents are rendered to HTML and printed to PDF with any installed Chrome-based browser (Chromium, Chrome, Brave or Edge). This gives good typography and layout without bundling a rendering engine.
+- **Versioning built in.** Documents use semantic versioning (major, minor, patch). Creating a version archives a snapshot of the YAML, HTML and PDF, so any past revision can be viewed or restored.
+- **ULID identifiers.** Documents are identified by ULIDs instead of incrementing numbers, which keeps the document store friendly to git and to teams working in parallel.
+- **A content library overlay.** Organizations can layer their own wording over the built-in content, so company-specific phrasing survives regeneration.
+- **XDG-compliant layout.** Configuration lives in `~/.config/sdsforge/config.toml` and documents in `~/.local/share/sdsforge/documents/`.
+
+Releases are built with GoReleaser and published through GitHub Actions, with an install script for a one-line setup.
+
+## Things I learned
+
+This project taught me a lot about the structure of an SDS and the GHS classification system behind it, including how hazard categories map to statements, pictograms and precautionary phrases. On the engineering side, I got to design a document store with its own versioning and restore model, and to work out a clean way to separate reference data, overridable templates and per-document input.
+
+It also reinforced how much responsibility comes with generating compliance documents. SDSForge ships with a clear disclaimer that generated content, especially generic boilerplate and transcribed GHS data, must be reviewed before it is used in production.
+
+## Future Work
+
+I would like to cover more of the reference data and make more sections derive automatically from the hazard classification instead of relying on generic wording. Other goals include better tooling for reviewing what changed between two versions of a document, and support for more output options beyond Chrome-rendered PDFs.
