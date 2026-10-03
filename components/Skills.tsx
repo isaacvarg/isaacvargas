@@ -39,6 +39,15 @@ const skills = {
     "Deno",
     "Bun",
   ],
+  ai: [
+   "LangChain",
+    "Ollama",
+    "Llamadex",
+    "pgvector",
+    "Hermes",
+    "Claude Code / CLI",
+     "MCP",
+  ]
 }
 
 const categories = [
@@ -47,6 +56,7 @@ const categories = [
   { label: "DevOps", items: skills.devOps },
   { label: "Databases & Storage", items: skills.databasesStorage },
   { label: "Environments", items: skills.environments },
+  { label: "AI", items: skills.ai},
 ]
 
 const Skills = () => {

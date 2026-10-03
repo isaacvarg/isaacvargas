@@ -14,6 +14,10 @@ const Hero = () => {
           <span className="text-accent/80"> Isaac Vargas</span>
         </div>
 
+        <div className="text-sm sm:text-base lg:text-lg text-base-content/70">
+          Software Engineer | Full-Stack | TypeScript | React | Go
+        </div>
+
         <div className="text-base sm:text-lg lg:text-xl">
           I am a chemist turned software engineer. Currently, I&apos;m a SWE at <span className="hover:cursor-pointer hover:text-primary underline decoration-dashed text-primary/90">Essentials by Catalina, Inc</span>. I&apos;ve written software that keeps scientific, manufacturing, and operations workflows moving smoothly. Seeing how code can solve very specific puzzles is what keeps me motivated to build; There are always new challenges and opportunities to learn and apply that knowledge.
         </div>
